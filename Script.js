@@ -40,7 +40,10 @@ var len = 0;
       `;
       sound.setAttribute("src", `${data[0].phonetics[0].audio}`)
     //   console.log(sound)
+    }).catch(()=>{
+      result.innerHTML = `<h3 class = "error">This Word Could not Find</h3>`
     });
+    
 });
 
 
