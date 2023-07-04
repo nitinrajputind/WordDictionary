@@ -15,6 +15,7 @@ var len = 0;
   fetch(`${url}${inpWord}`)
     .then((response) => response.json())
     .then((data) => {
+
       console.log(data);
 
       for(let i = 0; i < data[0].phonetics.length; i++){
@@ -24,18 +25,25 @@ var len = 0;
       result.innerHTML = `
         <div class="word">
         <h3>${inpWord}</h3>
-        <button><i class="fas fa-volume-high"></i></button> 
+        <button onclick = "playSound()"><i class="fas fa-volume-high"></i></button> 
       </div>
       <div class="details">
          <p>${data[0].meanings[0].partOfSpeech}</p> 
          <p>/${data[0].phonetics[len].text}/</p>
       </div>
       <p class="word-meaning">
-          ${data[0].meanings[0].definitions[0].definition}.
+          ${data[0].meanings[0].definitions[0].definition}
       </p>
       <p class="word-example">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex debitis, maxime nihil earum voluptatibus consequatur fugiat voluptas in a eveniet quaerat ipsam dignissimos accusantium nisi nulla voluptates asperiores ab suscipit!
+      ${data[0].meanings[0].definitions[0].example || ""}
       </p>
       `;
+      sound.setAttribute("src", `${data[0].phonetics[0].audio}`)
+    //   console.log(sound)
     });
 });
+
+
+function playSound(){
+    sound.play();
+}
